@@ -46,7 +46,7 @@ client.on(Events.GuildMemberRemove, async (member) => {
         // Try to kick the attacker
         const memberToKick = await guild.members.fetch(kicker.id).catch(() => null);
         if (memberToKick && memberToKick.kickable) {
-          await memberToKick.kick('Kicked Franco's Security 🔱 bot');
+          await memberToKick.kick("Kicked Franco's Security 🔱 bot");
         }
       }
     } catch (err) {
