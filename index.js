@@ -8,12 +8,9 @@ dotenv.config();
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMembers,
-    GatewayIntentBits.GuildMessageReactions,
-    GatewayIntentBits.GuildPresences,
-    GatewayIntentBits.GuildMessages
+    GatewayIntentBits.GuildMembers // Only required intent
   ],
-  partials: [Partials.GuildMember, Partials.Channel]
+  partials: [Partials.GuildMember]
 });
 
 // ✅ Main Franco's Security 🔱 BOT USER ID
