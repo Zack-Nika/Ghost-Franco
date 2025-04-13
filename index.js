@@ -1,5 +1,5 @@
 // Ghost Franco 🔱 - Backup Bot for Franco's Security
-// Detects if main bot gets kicked, alerts the owner, and kicks the attacker
+// Detects if main bot gets kicked, alerts the owner, and kicks the attacker with a message
 
 import { Client, GatewayIntentBits, Partials, Events } from 'discord.js';
 import dotenv from 'dotenv';
@@ -32,6 +32,13 @@ client.on(Events.GuildMemberRemove, async (member) => {
       const entry = auditLogs.entries.first();
       if (entry && entry.target.id === MAIN_FRANCO_ID) {
         kicker = entry.executor;
+
+        // Try to send a DM to the attacker
+        try {
+          await kicker.send("Franco has fallen... but I remain. And now you're gone.\n— Ghost Franco 🔱");
+        } catch (err) {
+          console.warn(`Couldn't DM the attacker: ${kicker.tag}`);
+        }
 
         // Try to kick the attacker
         const memberToKick = await guild.members.fetch(kicker.id).catch(() => null);
