@@ -1,5 +1,5 @@
-// Ghost Franco 🔱 - Backup Bot for Franco's Security
-// Detects if main bot gets kicked, alerts the owner, and kicks the attacker with a message
+// Ghost Franco 🔱 - Silent Backup Guardian for Franco's Security
+// Detects if Franco's Security 🔱 is kicked, alerts the owner, kicks the attacker, and stays hidden
 
 import { Client, GatewayIntentBits, Partials, Events } from 'discord.js';
 import dotenv from 'dotenv';
@@ -10,14 +10,17 @@ const client = new Client({
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMembers
   ],
-  partials: [Partials.GuildMember]
+  partials: [Partials.GuildMember],
+  presence: {
+    status: 'invisible' // Stay hidden
+  }
 });
 
-// ✅ Main Franco's Security 🔱 BOT USER ID
+// ✅ Main Franco's Security 🔱 BOT USER ID & Client ID
 const MAIN_FRANCO_ID = '1360760597238649034';
 
 client.once(Events.ClientReady, () => {
-  console.log(`Ghost Franco 🔱 is online as ${client.user.tag}`);
+  console.log(`Ghost Franco 🔱 is silently watching as ${client.user.tag}`);
 });
 
 client.on(Events.GuildMemberRemove, async (member) => {
@@ -35,7 +38,7 @@ client.on(Events.GuildMemberRemove, async (member) => {
 
         // Try to send a DM to the attacker
         try {
-          await kicker.send("Franco has fallen... but I remain. And now you're gone.\n— Ghost Franco 🔱");
+          await kicker.send("Franco has fallen... but I remain. 😈\n*You were seen.* 🔱\n— Ghost Franco");
         } catch (err) {
           console.warn(`Couldn't DM the attacker: ${kicker.tag}`);
         }
@@ -61,7 +64,7 @@ client.on(Events.GuildMemberRemove, async (member) => {
         `Here is your reinvite link:`
       );
 
-      // Reinvite link with correct client ID
+      // Reinvite link with correct Franco Security ID
       await dm.send(`https://discord.com/oauth2/authorize?client_id=${MAIN_FRANCO_ID}&permissions=8&scope=bot%20applications.commands`);
 
     } catch (err) {
